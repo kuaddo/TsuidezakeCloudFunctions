@@ -6,18 +6,13 @@ admin.initializeApp();
 
 const fireStore = admin.firestore();
 
-interface Sake {
-  id: number
-  ,name: string
-}
-
-export async function getSakes(): Promise<Array<Sake>> {
+export async function getSakes(): Promise<Array<any>> {
   console.log("LOG: Entered getSakes().");
   const sakes = await fireStore
     .collection('sakes')
     .get();
 
-  return sakes.docs.map(docs => docs.data()) as Sake[];
+  return sakes.docs.map(docs => docs.data()) as Array<any>;
 }
 
 
