@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import { ApolloServer, gql } from "apollo-server-cloud-functions";
-import { getSakes } from "./db/sakes";
+import { getSakes, getSake } from "./db/sakes";
 
 
 // // Start writing Firebase Functions
@@ -36,6 +36,7 @@ const typeDefs = gql`
   type Query {
     sakeList: [Sake]
     sakes: [Sake]
+    sake(id: Int!): Sake
   }
 `;
 
@@ -43,6 +44,7 @@ const resolvers = {
   Query: {
     sakeList: () => getSakes(), // 互換性保持のために残す.
     sakes: () => getSakes(),
+    sake: (parent: any, args: any, context: any, info: any) => getSake(args.id),
   },
 };
 

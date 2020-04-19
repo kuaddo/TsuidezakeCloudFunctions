@@ -15,5 +15,29 @@ export async function getSakes(): Promise<Array<any>> {
   return sakes.docs.map(docs => docs.data()) as Array<any>;
 }
 
+export async function getSake(id: number): Promise<any> {
+  console.log("LOG: Entered getSake(). With id: ", id);
+
+  const result: any = await fireStore
+    .collection('sakes')
+    .doc(id.toString())
+    .get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.log("No Sake Found.");
+        return null;
+      } else {
+        console.log("Sake Found. ", doc.data());
+        return doc.data();
+      }
+    })
+    .catch(err => {
+      console.log('Error getting document', err);
+      return null;
+    });
+
+    return result;
+}
+
 
 
