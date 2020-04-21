@@ -56,6 +56,7 @@ const server = new ApolloServer({
     req,
     res
   })
+  ,introspection: true
 });
 
 exports.graphql = functions.https.onRequest(server.createHandler());
