@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
-import { ApolloServer, gql } from "apollo-server-cloud-functions";
+import { ApolloServer } from "apollo-server-cloud-functions";
+import { graphQLSchema } from "./typeDefs"; 
 import { getSakes, getSake } from "./db/sakes";
 
 
@@ -10,35 +11,7 @@ import { getSakes, getSake } from "./db/sakes";
 //  response.send("Hello from Firebase!");
 // });
 
-const typeDefs = gql`
-  type Sake {
-    id: Int
-    name: String
-    tags: [Tag]
-    brewer: String
-    description: String
-    isSuitAtHotTemp: Boolean
-    isSuitAtWarmTemp: Boolean
-    isSuitAtRoomTemp: Boolean
-    isSuitAtColdTemp: Boolean
-    isSuitOnTheRock: Boolean
-    isGoodWithMeatProd: Boolean
-    isGoodWithSeafoodProd: Boolean
-    isGoodWithDairyProd: Boolean
-    isGoodWithDryProd: Boolean
-  }
-
-  type Tag {
-    id: Int
-    name: String
-  }
-
-  type Query {
-    sakeList: [Sake]
-    sakes: [Sake]
-    sake(id: Int!): Sake
-  }
-`;
+const typeDefs = graphQLSchema;
 
 const resolvers = {
   Query: {
