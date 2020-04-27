@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { ApolloServer } from "apollo-server-cloud-functions";
 import { graphQLSchema } from "./typeDefs"; 
-import { getSakes, getSake } from "./db/sakes";
+import { resolvers } from "./resolvers/index";
 
 
 // // Start writing Firebase Functions
@@ -12,14 +12,6 @@ import { getSakes, getSake } from "./db/sakes";
 // });
 
 const typeDefs = graphQLSchema;
-
-const resolvers = {
-  Query: {
-    sakeList: () => getSakes(), // 互換性保持のために残す.
-    sakes: () => getSakes(),
-    sake: (parent: any, args: any, context: any, info: any) => getSake(args.id),
-  },
-};
 
 const server = new ApolloServer({
   typeDefs
