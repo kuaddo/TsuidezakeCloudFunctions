@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import { ApolloServer } from "apollo-server-cloud-functions";
-import { graphQLSchema } from "./typeDefs"; 
+import { typeDefs } from "./typeDefs"; 
 import { resolvers } from "./resolvers/index";
 
 
@@ -10,8 +10,6 @@ import { resolvers } from "./resolvers/index";
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
-
-const typeDefs = graphQLSchema;
 
 const server = new ApolloServer({
   typeDefs
