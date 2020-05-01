@@ -1,6 +1,21 @@
 import { gql } from "apollo-server-cloud-functions";
 
 export const typeDefs = gql`
+enum SuitableTemparature {
+  HOT
+  WARM
+  ROOM
+  COLD
+  ROCK
+}
+
+enum FoodCategory {
+  MEAT
+  SEAFOOD
+  DAIRY
+  SNACK
+}
+
 type Sake {
   id: Int!
   name: String!
@@ -8,15 +23,17 @@ type Sake {
   brewer: String
   description: String
   imgPath: String
-  isSuitAtHotTemp: Boolean
-  isSuitAtWarmTemp: Boolean
-  isSuitAtRoomTemp: Boolean
-  isSuitAtColdTemp: Boolean
-  isSuitOnTheRock: Boolean
-  isGoodWithMeatProd: Boolean
-  isGoodWithSeafoodProd: Boolean
-  isGoodWithDairyProd: Boolean
-  isGoodWithDryProd: Boolean
+  isSuitAtHotTemp: Boolean!
+  isSuitAtWarmTemp: Boolean!
+  isSuitAtRoomTemp: Boolean!
+  isSuitAtColdTemp: Boolean!
+  isSuitOnTheRock: Boolean!
+  isGoodWithMeatProd: Boolean!
+  isGoodWithSeafoodProd: Boolean!
+  isGoodWithDairyProd: Boolean!
+  isGoodWithDryProd: Boolean!
+  suitableTemparatures: [SuitableTemparature!]!
+  goodFoodCategories: [FoodCategory!]!
 }
 
 type Tag {

@@ -24,10 +24,8 @@ export async function getSake(id: number): Promise<any> {
     .get()
     .then(doc => {
       if (!doc.exists) {
-        console.log("No Sake Found.");
         return null;
       } else {
-        console.log("Sake Found. ", doc.data());
         return doc.data();
       }
     })
