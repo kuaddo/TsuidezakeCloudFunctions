@@ -19,7 +19,7 @@ enum FoodCategory {
 type Sake {
   id: Int!
   name: String!
-  tags: [Tag]
+  tags: [Tag!]!
   brewer: String
   description: String
   imgPath: String
@@ -32,7 +32,7 @@ type Sake {
   isGoodWithSeafoodProd: Boolean!
   isGoodWithDairyProd: Boolean!
   isGoodWithDryProd: Boolean!
-  suitableTemparatures: [SuitableTemparature!]!
+  suitableTemperatures: [SuitableTemparature!]!
   goodFoodCategories: [FoodCategory!]!
 }
 

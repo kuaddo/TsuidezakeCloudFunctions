@@ -3,7 +3,7 @@ import { query } from "./query"
 export const resolvers = {
   Query: query,
   Sake: {
-    suitableTemparatures: (parent: any) => {
+    suitableTemperatures: (parent: any) => {
       const suitTemps = [];
 
       if (parent.isSuitAtHotTemp) {
