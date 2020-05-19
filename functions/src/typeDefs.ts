@@ -45,6 +45,6 @@ type Query {
   sakeList: [Sake]
   sakes: [Sake]
   sake(id: Int!): Sake
-  testWishList: [Sake]
+  wishList: [Sake]!
 }
 `;

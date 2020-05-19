@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 import { ApolloServer } from "apollo-server-cloud-functions";
 import { typeDefs } from "./typeDefs"; 
 import { resolvers } from "./resolvers/index";
@@ -14,11 +15,16 @@ import { resolvers } from "./resolvers/index";
 const server = new ApolloServer({
   typeDefs
   ,resolvers
-  ,context: ({ req, res }) => ({
-    headers: req.headers,
-    req,
-    res
-  })
+  ,context: async ({ req, res }) => {
+    const firebaseAuthToken = req.headers.authorization;
+    const currentUID = await admin.auth().verifyIdToken(firebaseAuthToken)
+      .then(decodedToken => {
+        return decodedToken.uid;
+      }).catch(err => {
+        console.error(err);
+      });
+    return { currentUID };
+  }
   ,introspection: true
 });
 

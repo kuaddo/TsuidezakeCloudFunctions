@@ -41,7 +41,7 @@ export async function fetchWishSakes(currentUID: string): Promise<any> {
   // Note:
   //   N+1 問題は許容する.
   //   問題が顕在化した場合に JOIN ができるような DB に移行するとか考える.
-  console.log("LOG: Entered getWishSakes()");
+  console.log(`LOG: Entered getWishSakes() with "${currentUID}"`);
   const wishSakes: Array<Sake> = await fireStore
     .collection('wishSakes')
     .doc(currentUID)
