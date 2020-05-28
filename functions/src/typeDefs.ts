@@ -34,6 +34,7 @@ type Sake {
   isGoodWithDryProd: Boolean!
   suitableTemperatures: [SuitableTemparature!]!
   goodFoodCategories: [FoodCategory!]!
+  region: String!
 }
 
 type Tag {

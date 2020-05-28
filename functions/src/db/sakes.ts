@@ -85,5 +85,6 @@ interface Sake {
   isGoodWithMeatProd: boolean,
   isGoodWithSeafoodProd: boolean,
   isGoodWithDairyProd: boolean,
-  isGoodWithDryProd: boolean
+  isGoodWithDryProd: boolean,
+  region: string
 }
