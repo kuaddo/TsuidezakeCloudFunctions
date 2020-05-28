@@ -41,10 +41,15 @@ type Tag {
   name: String
 }
 
+type User {
+  uid: String!
+}
+
 type Query {
   sakeList: [Sake]
   sakes: [Sake]
   sake(id: Int!): Sake
   wishList: [Sake]!
+  me: User
 }
 `;
