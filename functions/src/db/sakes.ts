@@ -70,12 +70,22 @@ export async function addWishSake(currentUID: string, sakeId: number): Promise<a
   // 呑みたいリストに酒を追加する.
   console.log(`LOG: Entered addWishSake() with uid: "${currentUID}", sakeId: "${sakeId}"`);
 
-  await fireStore
-    .collection('wishSakes')
-    .doc(currentUID)
-    .update({
+  // ドキュメントの存在確認.
+  const docRef: FirebaseFirestore.DocumentReference = fireStore
+                        .collection('wishSakes')
+                        .doc(currentUID);
+
+  const doc: FirebaseFirestore.DocumentSnapshot = await docRef.get();
+
+  if (doc.exists) {
+    await docRef.update({
       sakeIds: admin.firestore.FieldValue.arrayUnion(sakeId)
-    });
+    })
+  } else {
+    await docRef.set({
+      sakeIds: [sakeId]
+    })
+  }
 
   return await fetchWishSakes(currentUID);
 }
@@ -84,12 +94,22 @@ export async function removeWishSake(currentUID: string, sakeId: number): Promis
   // 呑みたいリストから酒を削除する.
   console.log(`LOG: Entered addWishSake() with uid: "${currentUID}", sakeId: "${sakeId}"`);
 
-  await fireStore
-    .collection('wishSakes')
-    .doc(currentUID)
-    .update({
+  // ドキュメントの存在確認.
+  const docRef: FirebaseFirestore.DocumentReference = fireStore
+                                                      .collection('wishSakes')
+                                                      .doc(currentUID);
+
+  const doc: FirebaseFirestore.DocumentSnapshot = await docRef.get();
+
+  if (doc.exists) {
+    await docRef.update({
       sakeIds: admin.firestore.FieldValue.arrayRemove(sakeId)
-    });
+  })
+  } else {
+    await docRef.set({
+      sakeIds: []
+    })
+  }
 
   return await fetchWishSakes(currentUID);
 }
