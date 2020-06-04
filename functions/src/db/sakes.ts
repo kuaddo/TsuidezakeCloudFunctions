@@ -66,6 +66,20 @@ export async function fetchWishSakes(currentUID: string): Promise<any> {
   return wishSakes;
 }
 
+export async function addWishSake(currentUID: string, sakeId: number): Promise<any> {
+  // 呑みたいリストに酒を追加する.
+  console.log(`LOG: Entered addWishSake() with uid: "${currentUID}", sakeId: "${sakeId}"`);
+
+  await fireStore
+    .collection('wishSakes')
+    .doc(currentUID)
+    .update({
+      sakeIds: admin.firestore.FieldValue.arrayUnion(sakeId)
+    });
+
+  return await fetchWishSakes(currentUID);
+}
+
 interface WishSakes {
   sakeIds: [number];
 }

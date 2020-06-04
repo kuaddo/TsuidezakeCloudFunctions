@@ -1,7 +1,9 @@
-import { query } from "./query"
+import { query } from "./query";
+import { mutations } from "./mutations";
 
 export const resolvers = {
   Query: query,
+  Mutation: mutations,
   Sake: {
     suitableTemperatures: (parent: any) => {
       const suitTemps = [];

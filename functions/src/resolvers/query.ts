@@ -1,4 +1,5 @@
 import { getSakes, getSake, fetchWishSakes } from "../db/sakes"
+import { UserContext } from "../types";
 
 export const query = {
   sakeList: () => getSakes(),
@@ -12,8 +13,4 @@ export const query = {
       return null;
     }
   }
-}
-
-interface UserContext {
-  currentUID: string;
 }

@@ -53,4 +53,8 @@ type Query {
   wishList: [Sake]!
   me: User
 }
+
+type Mutation {
+  addWishSake(id: Int!): [Sake]!
+}
 `;
