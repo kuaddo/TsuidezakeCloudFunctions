@@ -80,6 +80,20 @@ export async function addWishSake(currentUID: string, sakeId: number): Promise<a
   return await fetchWishSakes(currentUID);
 }
 
+export async function removeWishSake(currentUID: string, sakeId: number): Promise<any> {
+  // 呑みたいリストから酒を削除する.
+  console.log(`LOG: Entered addWishSake() with uid: "${currentUID}", sakeId: "${sakeId}"`);
+
+  await fireStore
+    .collection('wishSakes')
+    .doc(currentUID)
+    .update({
+      sakeIds: admin.firestore.FieldValue.arrayRemove(sakeId)
+    });
+
+  return await fetchWishSakes(currentUID);
+}
+
 interface WishSakes {
   sakeIds: [number];
 }

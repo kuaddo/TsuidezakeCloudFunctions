@@ -56,5 +56,6 @@ type Query {
 
 type Mutation {
   addWishSake(id: Int!): [Sake]!
+  removeWishSake(id: Int!): [Sake]!
 }
 `;
