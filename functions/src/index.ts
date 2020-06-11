@@ -1,16 +1,11 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import { ApolloServer } from "apollo-server-cloud-functions";
-import { typeDefs } from "./typeDefs"; 
+import { readFileSync } from 'fs';
+import * as path from 'path';
 import { resolvers } from "./resolvers/index";
 
-
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+const typeDefs = [readFileSync(path.join(__dirname, "typeDefs.graphql"), "utf8")];
 
 const server = new ApolloServer({
   typeDefs

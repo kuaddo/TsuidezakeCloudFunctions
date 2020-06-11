@@ -1,7 +1,4 @@
-import { gql } from "apollo-server-cloud-functions";
-
-export const typeDefs = gql`
-enum SuitableTemparature {
+enum SuitableTemperature {
   HOT
   WARM
   ROOM
@@ -32,7 +29,7 @@ type Sake {
   isGoodWithSeafoodProd: Boolean!
   isGoodWithDairyProd: Boolean!
   isGoodWithDryProd: Boolean!
-  suitableTemperatures: [SuitableTemparature!]!
+  suitableTemperatures: [SuitableTemperature!]!
   goodFoodCategories: [FoodCategory!]!
   region: String!
 }
@@ -58,4 +55,3 @@ type Mutation {
   addWishSake(id: Int!): [Sake]!
   removeWishSake(id: Int!): [Sake]!
 }
-`;

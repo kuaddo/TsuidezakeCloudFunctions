@@ -2,6 +2,9 @@
 **/*.js
 **/*.js.map
 
+## ignore copied typeDefs.graphql
+lib/typeDefs.graphql
+
 # Typescript v1 declaration files
 typings/
 
