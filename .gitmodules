@@ -1,0 +1,3 @@
+[submodule "functions/src/schemata"]
+	path = functions/src/schemata
+	url = git@github.com:kuaddo/TsuidezakeGraphQLSchema.git
