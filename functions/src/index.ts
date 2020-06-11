@@ -5,7 +5,7 @@ import { readFileSync } from 'fs';
 import * as path from 'path';
 import { resolvers } from "./resolvers/index";
 
-const typeDefs = [readFileSync(path.join(__dirname, "typeDefs.graphql"), "utf8")];
+const typeDefs = [readFileSync(path.join(__dirname, "schemata/typeDefs.graphql"), "utf8")];
 
 const server = new ApolloServer({
   typeDefs
