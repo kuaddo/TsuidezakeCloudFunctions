@@ -3,6 +3,7 @@
 // const admin = require('firebase-admin');
 import * as admin from 'firebase-admin';
 admin.initializeApp();
+import { Sake, WishSakes } from '../types';
 
 const fireStore = admin.firestore();
 
@@ -112,27 +113,4 @@ export async function removeWishSake(currentUID: string, sakeId: number): Promis
   }
 
   return await fetchWishSakes(currentUID);
-}
-
-interface WishSakes {
-  sakeIds: [number];
-}
-
-interface Sake {
-  id: number,
-  name: string,
-  tags: [string],
-  brewer: string,
-  description: string,
-  imgPath: string,
-  isSuitAtHotTemp: boolean,
-  isSuitAtWarmTemp: boolean,
-  isSuitAtRoomTemp: boolean,
-  isSuitAtColdTemp: boolean,
-  isSuitOnTheRock: boolean,
-  isGoodWithMeatProd: boolean,
-  isGoodWithSeafoodProd: boolean,
-  isGoodWithDairyProd: boolean,
-  isGoodWithDryProd: boolean,
-  region: string
 }
