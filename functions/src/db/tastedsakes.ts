@@ -30,6 +30,8 @@ async function createTastedSakesDocIfNotExists(currentUID: string): Promise<void
 export async function fetchTastedSakes(currentUID: string): Promise<Array<Sake>> {
   /**
    * 呑んだリストを取得.
+   * @param currentUID アクセスユーザの UID
+   * @returns 酒のドキュメントのリスト
    */
 
   console.log(`LOG: Entered fetchTastedSakes() with "${currentUID}"`);
@@ -63,6 +65,9 @@ export async function fetchTastedSakes(currentUID: string): Promise<Array<Sake>>
 export async function addTastedSake(currentUID: string, sakeId: number): Promise<Array<Sake>> {
   /**
    * 呑んだリストに酒を追加
+   * @params currentUID アクセスしているユーザ ID
+   * @params sakeID 呑んだリストに追加したい sakeId
+   * @params 操作後の呑んだリスト
    */
 
   console.log(`LOG: Entered addTastedSake() with "${currentUID}"`);
@@ -82,6 +87,9 @@ export async function addTastedSake(currentUID: string, sakeId: number): Promise
 export async function removeTastedSake(currentUID: string, sakeId: number): Promise<Array<Sake>> {
   /**
    * 呑んだリストから酒を削除
+   * @params currentUID アクセスしているユーザ ID
+   * @params 呑んだリストから削除したい sakeID
+   * @params 操作後の呑んだリスト
    */
 
   console.log(`LOG: Entered removeTastedSake() with "${currentUID}"`);
