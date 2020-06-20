@@ -24,3 +24,7 @@ export interface Sake {
 export interface WishSakes {
   sakeIds: [number];
 }
+
+export interface SakeIds {
+  sakeIds: [number];
+}
