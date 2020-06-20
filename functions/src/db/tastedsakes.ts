@@ -69,21 +69,11 @@ export async function addTastedSake(currentUID: string, sakeId: number): Promise
 
   await createTastedSakesDocIfNotExists(currentUID);
 
-  const docRef: FirebaseFirestore.DocumentReference = await 
-    fireStore
+  await fireStore
     .collection(CollectionNameTastedSakes)
-    .doc(currentUID);
-
-  await docRef.get()
-    .then(async doc => {
-      const sakeIdDoc: SakeIds = doc.data() as SakeIds;
-      if (!sakeIdDoc.sakeIds.some(currentObject => {
-        return currentObject === sakeId; 
-      })) {
-        await docRef.update({
-          sakeIds: admin.firestore.FieldValue.arrayUnion(sakeId)
-        });
-      }
+    .doc(currentUID)
+    .update({
+      sakeIds: admin.firestore.FieldValue.arrayUnion(sakeId)
     });
   
   return await fetchTastedSakes(currentUID);
