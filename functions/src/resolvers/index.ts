@@ -1,5 +1,6 @@
 import { query } from "./query";
 import { mutations } from "./mutations";
+import { SuitableTemperature, GoodFood } from "../types";
 
 export const resolvers = {
   Query: query,
@@ -9,35 +10,35 @@ export const resolvers = {
       const suitTemps = [];
 
       if (parent.isSuitAtHotTemp) {
-        suitTemps.push("HOT");
+        suitTemps.push(SuitableTemperature.HOT);
       }
       if (parent.isSuitAtWarmTemp) {
-        suitTemps.push("WARM");
+        suitTemps.push(SuitableTemperature.WARM);
       }
       if (parent.isSuitAtRoomTemp) {
-        suitTemps.push("ROOM");
+        suitTemps.push(SuitableTemperature.ROOM);
       }
       if (parent.isSuitAtColdTemp) {
-        suitTemps.push("COLD");
+        suitTemps.push(SuitableTemperature.COLD);
       }
       if (parent.isSuitOnTheRock) {
-        suitTemps.push("ROCK");
+        suitTemps.push(SuitableTemperature.ROCK);
       }
       return suitTemps;
     },
     goodFoodCategories: (parent: any) => {
       const goodFoods = [];
       if (parent.isGoodWithMeatProd) {
-        goodFoods.push("MEAT");
+        goodFoods.push(GoodFood.MEAT);
       }
       if (parent.isGoodWithSeafoodProd) {
-        goodFoods.push("SEAFOOD");
+        goodFoods.push(GoodFood.SEAFOOD);
       }
       if (parent.isGoodWithDairyProd) {
-        goodFoods.push("DAIRY");
+        goodFoods.push(GoodFood.DAIRY);
       }
       if (parent.isGoodWithDryProd) {
-        goodFoods.push("SNACK");
+        goodFoods.push(GoodFood.SNACK);
       }
       return goodFoods;
     }

@@ -28,3 +28,18 @@ export interface WishSakes {
 export interface SakeIds {
   sakeIds: [number];
 }
+
+export enum SuitableTemperature {
+  HOT = "HOT",
+  WARM = "WARM",
+  ROOM = "ROOM",
+  COLD = "COLD",
+  ROCK = "ROCK"
+}
+
+export enum GoodFood {
+  MEAT = "MEAT",
+  SEAFOOD = "SEAFOOD",
+  DAIRY = "DAIRY",
+  SNACK = "SNACK"
+}
