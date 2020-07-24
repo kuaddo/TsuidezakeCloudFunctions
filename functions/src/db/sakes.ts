@@ -38,6 +38,19 @@ export async function getSake(id: number): Promise<Sake> {
     return result;
 }
 
+export async function addSake(input: Sake): Promise<Sake> {
+  console.log("LOG: Entered addSake().");
+
+  const docRef: FirebaseFirestore.DocumentReference = fireStore
+                  .collection('sakes')
+                  .doc(input.id.toString());
+  await docRef.set({
+    input
+  });
+
+  return input;
+}
+
 export async function fetchWishSakes(currentUID: string): Promise<any> {
   // Note:
   //   N+1 問題は許容する.
