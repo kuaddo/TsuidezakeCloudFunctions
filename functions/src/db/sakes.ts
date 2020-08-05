@@ -44,9 +44,7 @@ export async function addSake(input: Sake): Promise<Sake> {
   const docRef: FirebaseFirestore.DocumentReference = fireStore
                   .collection('sakes')
                   .doc(input.id.toString());
-  await docRef.set({
-    input
-  });
+  await docRef.set(input);
 
   return input;
 }
