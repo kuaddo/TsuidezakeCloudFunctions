@@ -43,3 +43,14 @@ export enum GoodFood {
   DAIRY = "DAIRY",
   SNACK = "SNACK"
 }
+
+export interface RankingContent {
+  rank: number
+  sake: Sake
+}
+
+export interface Ranking {
+  displayOrder: number,
+  category: string,
+  contents: RankingContent[]
+}
