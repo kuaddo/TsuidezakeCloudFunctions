@@ -30,7 +30,7 @@ const server = new ApolloServer({
 
     // currentUID が null の場合には, 正しくないトークンが Authorization に渡されたのでエラーを返す.
     if (!currentUID) {
-      throw new AuthenticationError("Authorization faild. Check id token.");
+      throw new AuthenticationError("Authorization failed. Check id token.");
     }
 
     return { currentUID };
