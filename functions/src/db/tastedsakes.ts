@@ -4,11 +4,12 @@
  */
 
 import * as admin from 'firebase-admin';
-import { Sake, SakeIds } from '../types';
+import { Sake, SakeIds, TastedSake } from '../types';
 import { getSake } from './sakes';
 
 const fireStore = admin.firestore();
 const CollectionNameTastedSakes: string = 'tastedSakes';
+const CollectionNameSakesStars: string = 'sakesstars';
 
 async function createTastedSakesDocIfNotExists(currentUID: string): Promise<void> {
   /**
@@ -104,4 +105,30 @@ export async function removeTastedSake(currentUID: string, sakeId: number): Prom
     });
 
   return await fetchTastedSakes(currentUID);
+}
+
+export async function addTastedSakeWithStars(currentUID: string, input: TastedSake): Promise<Array<TastedSake>> {
+  /**
+   * 呑んだリストにその評価とともに酒を追加
+   * @params currentUID {string}: API にアクセスしているユーザ ID
+   * @params input {input}: 呑んだリストに追加したい酒 ID と評価の組
+   * @params 操作後の呑んだリスト
+   */
+
+  console.log(`LOG: Entered addTastedSakes() with "${currentUID}".`);
+
+  await fireStore
+    .collection(CollectionNameTastedSakes)
+    .doc(currentUID)
+    .collection(CollectionNameSakesStars)
+    .doc(input.sakeid.toString())
+    .set(input);
+
+  const result: any = await fireStore
+    .collection(CollectionNameTastedSakes)
+    .doc(currentUID)
+    .collection(CollectionNameSakesStars)
+    .get();
+
+  return result.docs.map((doc: any) => doc.data()) as Array<TastedSake>;
 }

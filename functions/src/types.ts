@@ -54,3 +54,8 @@ export interface Ranking {
   category: string,
   contents: RankingContent[]
 }
+
+export interface TastedSake {
+  sakeid: number,
+  stars: number
+}
