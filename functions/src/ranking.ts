@@ -32,8 +32,27 @@ export async function getDummyRanking(): Promise<Ranking[]> {
     },
     {
       "displayOrder": 2,
-      "category": "ForYou",
+      "category": "SecondaryRanking",
       "contents": contents2
     }
   ]
+}
+
+export async function getDummyForYou(): Promise<RankingContent[]> {
+  console.log("LOG: Entered getDummyForYou");
+  const sakes: Sake[] = [];
+
+  for (let i = 0; i < 10; i++) {
+    const sake = await getSake(i+1);
+    sakes.push(sake);
+  }
+
+  const contents: RankingContent[] = sakes.map((sake, i) => {
+    return {
+      "rank": i+1,
+      "sake": sake
+    }
+  });
+
+  return contents;
 }
