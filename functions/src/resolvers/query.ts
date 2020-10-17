@@ -1,4 +1,4 @@
-import { getSakes, getSake, fetchWishSakes } from "../db/sakes";
+import { getSakes, getSake, getUserSake, fetchWishSakes } from "../db/sakes";
 import { fetchTastedSakes } from "../db/tastedsakes";
 import { getDummyRanking, getDummyForYou } from "../ranking";
 import { UserContext } from "../types";
@@ -7,6 +7,7 @@ export const query = {
   sakeList: () => getSakes(),
   sakes: () => getSakes(),
   sake: (parent: any, args: any, context: any, info: any) => getSake(args.id),
+  getUserSake: (parent: any, args: any, context: UserContext) => getUserSake(args.id, context.currentUID),
   wishList: (parent: any, args: any, context: UserContext) => fetchWishSakes(context.currentUID),
   tastedList: (parent: any, args: any, context: UserContext) => fetchTastedSakes(context.currentUID),
   getRankings: () => getDummyRanking(),

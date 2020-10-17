@@ -3,7 +3,7 @@
 // const admin = require('firebase-admin');
 import * as admin from 'firebase-admin';
 admin.initializeApp();
-import { Sake, WishSakes } from '../types';
+import { Sake, WishSakes, UserSake } from '../types';
 
 const fireStore = admin.firestore();
 
@@ -36,6 +36,83 @@ export async function getSake(id: number): Promise<Sake> {
     });
 
     return result;
+}
+
+export async function getUserSake(sakeid: number, uid: string): Promise<UserSake|null> {
+  /**
+   * Sake の ID と ユーザ ID を引数に取り,
+   * 酒の詳細情報と, ユーザがその酒を呑んだことがあるか, ウィッシュリストに追加済かを返す.
+   */
+  console.log(`LOG: Entered getUserSake(). With id: ${sakeid}`);
+
+  const sake: Sake|null = await fireStore
+    .collection('sakes')
+    .doc(sakeid.toString())
+    .get()
+    .then(doc => {
+      if (!doc.exists) {
+        return null;
+      } else {
+        return doc.data() as Sake;
+      }
+    }).catch(err => {
+      console.log(`Error getting document ${err}.`);
+      return null;
+    });
+
+  if (!sake) {
+    return null;
+  }
+
+  const isWished: Boolean = await fireStore
+    .collection('wishSakes')
+    .doc(uid)
+    .get()
+    .then(doc => {
+      if (!doc.exists) {
+        return false;
+      } else {
+        const docdata = doc.data();
+        if (docdata) {
+          const wishList = docdata.sakeIds;
+          
+          return wishList.some((id :number) => id === sakeid);
+        } else {
+          return false;
+        }
+      }
+    }).catch(err => {
+      console.log(`Error getting document ${err}.`);
+      return false;
+    });
+
+  const isTasted: Boolean = await fireStore
+    .collection('tastedSakes')
+    .doc(uid)
+    .get()
+    .then(doc => {
+      if (!doc.exists) {
+        return false;
+      } else {
+        const docdata = doc.data();
+        if (docdata) {
+          const tastedList = docdata.sakeIds;
+
+          return tastedList.some((id: number) => id === sakeid);
+        } else {
+          return false;
+        }
+      }
+    }).catch(err => {
+      console.log(`Error getting tastedsake document ${err}.`);
+      return false;
+    });
+
+  return {
+    sake: sake,
+    isTasted: isTasted,
+    isWished: isWished
+  } as UserSake;
 }
 
 export async function addSake(input: Sake): Promise<Sake> {

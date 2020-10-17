@@ -59,3 +59,9 @@ export interface TastedSake {
   sakeid: number,
   stars: number
 }
+
+export interface UserSake {
+  sake: Sake,
+  isTasted: Boolean,
+  isWished: Boolean
+}
