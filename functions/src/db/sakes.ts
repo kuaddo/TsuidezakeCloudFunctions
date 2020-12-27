@@ -89,19 +89,22 @@ export async function getUserSake(sakeid: number, uid: string): Promise<UserSake
   const isTasted: Boolean = await fireStore
     .collection('tastedSakes')
     .doc(uid)
+    .collection('sakesstars')
+    .doc(sakeid.toString())
     .get()
     .then(doc => {
       if (!doc.exists) {
         return false;
       } else {
-        const docdata = doc.data();
-        if (docdata) {
-          const tastedList = docdata.sakeIds;
+        // const docdata = doc.data();
+        // if (docdata) {
+        //   const tastedList = docdata.sakeIds;
 
-          return tastedList.some((id: number) => id === sakeid);
-        } else {
-          return false;
-        }
+        //   return tastedList.some((id: number) => id === sakeid);
+        // } else {
+        //   return false;
+        // }
+        return true;
       }
     }).catch(err => {
       console.log(`Error getting tastedsake document ${err}.`);
@@ -155,7 +158,7 @@ export async function fetchWishSakes(currentUID: string): Promise<any> {
   return wishSakes;
 }
 
-export async function addWishSake(currentUID: string, sakeId: number): Promise<any> {
+export async function addWishSake(currentUID: string, sakeId: number): Promise<UserSake|null> {
   // 呑みたいリストに酒を追加する.
   console.log(`LOG: Entered addWishSake() with uid: "${currentUID}", sakeId: "${sakeId}"`);
 
@@ -176,10 +179,10 @@ export async function addWishSake(currentUID: string, sakeId: number): Promise<a
     })
   }
 
-  return await fetchWishSakes(currentUID);
+  return await getUserSake(sakeId, currentUID);
 }
 
-export async function removeWishSake(currentUID: string, sakeId: number): Promise<any> {
+export async function removeWishSake(currentUID: string, sakeId: number): Promise<UserSake|null> {
   // 呑みたいリストから酒を削除する.
   console.log(`LOG: Entered addWishSake() with uid: "${currentUID}", sakeId: "${sakeId}"`);
 
@@ -200,5 +203,5 @@ export async function removeWishSake(currentUID: string, sakeId: number): Promis
     })
   }
 
-  return await fetchWishSakes(currentUID);
+  return await getUserSake(sakeId, currentUID);
 }
