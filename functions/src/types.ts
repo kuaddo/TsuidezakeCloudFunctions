@@ -56,7 +56,7 @@ export interface Ranking {
 }
 
 export interface TastedSake {
-  sakeid: number,
+  sakeId: number,
   stars: number
 }
 

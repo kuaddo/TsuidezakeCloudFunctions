@@ -4,8 +4,8 @@
  */
 
 import * as admin from 'firebase-admin';
-import { Sake, SakeIds, TastedSake } from '../types';
-import { getSake } from './sakes';
+import { Sake, SakeIds, TastedSake, UserSake } from '../types';
+import { getSake, getUserSake } from './sakes';
 
 const fireStore = admin.firestore();
 const CollectionNameTastedSakes: string = 'tastedSakes';
@@ -85,7 +85,7 @@ export async function addTastedSake(currentUID: string, sakeId: number): Promise
   return await fetchTastedSakes(currentUID);
 }
 
-export async function removeTastedSake(currentUID: string, sakeId: number): Promise<Array<Sake>> {
+export async function removeTastedSake(currentUID: string, sakeId: number): Promise<UserSake|null> {
   /**
    * 呑んだリストから酒を削除
    * @params currentUID アクセスしているユーザ ID
@@ -100,14 +100,14 @@ export async function removeTastedSake(currentUID: string, sakeId: number): Prom
   await fireStore
     .collection(CollectionNameTastedSakes)
     .doc(currentUID)
-    .update({
-      sakeIds: admin.firestore.FieldValue.arrayRemove(sakeId)
-    });
+    .collection(CollectionNameSakesStars)
+    .doc(sakeId.toString())
+    .delete();
 
-  return await fetchTastedSakes(currentUID);
+  return await getUserSake(sakeId, currentUID);
 }
 
-export async function addTastedSakeWithStars(currentUID: string, input: TastedSake): Promise<Array<TastedSake>> {
+export async function addTastedSakeWithStars(currentUID: string, input: TastedSake): Promise<UserSake|null> {
   /**
    * 呑んだリストにその評価とともに酒を追加
    * @params currentUID {string}: API にアクセスしているユーザ ID
@@ -121,14 +121,14 @@ export async function addTastedSakeWithStars(currentUID: string, input: TastedSa
     .collection(CollectionNameTastedSakes)
     .doc(currentUID)
     .collection(CollectionNameSakesStars)
-    .doc(input.sakeid.toString())
+    .doc(input.sakeId.toString())
     .set(input);
 
-  const result: any = await fireStore
+  await fireStore
     .collection(CollectionNameTastedSakes)
     .doc(currentUID)
     .collection(CollectionNameSakesStars)
     .get();
 
-  return result.docs.map((doc: any) => doc.data()) as Array<TastedSake>;
+  return getUserSake(input.sakeId, currentUID);
 }
