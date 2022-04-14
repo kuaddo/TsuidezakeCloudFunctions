@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "tsuidezake"
-  }
+    "default": "tsuidezake",
+    "dev": "tsuidezake-dev",
+    "prod": "tsuidezake"
+  },
+  "targets": {}
 }
