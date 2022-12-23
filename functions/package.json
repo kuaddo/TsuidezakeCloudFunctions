@@ -15,8 +15,8 @@
   "main": "lib/index.js",
   "dependencies": {
     "apollo-server-cloud-functions": "^2.14.3",
-    "firebase-admin": "^10.0.2",
-    "firebase-functions": "^3.7.0",
+    "firebase-admin": "^11.4.1",
+    "firebase-functions": "^3.24.1",
     "graphql": "^15.1.0",
     "npm-check-updates": "^7.0.1",
     "pg": "^8.2.1"
